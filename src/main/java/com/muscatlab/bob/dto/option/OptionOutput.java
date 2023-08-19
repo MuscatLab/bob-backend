@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -18,12 +20,12 @@ public class OptionOutput {
 
     private String name;
 
-    private int maxStep;
+    private List<Integer> quantity;
 
     public static OptionOutput from(Option entity) {
         return new OptionOutput()
                 .setId(entity.getId())
                 .setName(entity.getName())
-                .setMaxStep(entity.getStep());
+                .setQuantity(new ArrayList<>(entity.getQuantity()));
     }
 }

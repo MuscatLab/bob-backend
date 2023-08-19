@@ -3,14 +3,13 @@ package com.muscatlab.bob.dto.customMenu;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.muscatlab.bob.domain.entity.CustomMenu;
-import com.muscatlab.bob.domain.entity.CustomOption;
 import com.muscatlab.bob.dto.customOption.CustomOptionOutput;
+import com.muscatlab.bob.dto.customTaste.CustomTasteOutput;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -24,11 +23,13 @@ public class CustomMenuOutput {
 
     private String name;
 
-    private int price;
+    private int quantity;
 
     private String imageUrl;
 
     private List<CustomOptionOutput> options;
+
+    private List<CustomTasteOutput> tastes;
 
     private LocalDateTime createdDate;
 
@@ -36,10 +37,13 @@ public class CustomMenuOutput {
         return new CustomMenuOutput()
                 .setId(entity.getId())
                 .setName(entity.getMenu().getName())
-                .setPrice(entity.getMenu().getPrice())
+                .setQuantity(entity.getQuantity())
                 .setImageUrl(entity.getMenu().getImageUrl())
                 .setOptions(entity.getCustomOptions().stream()
                         .map(CustomOptionOutput::from)
+                        .collect(Collectors.toList()))
+                .setTastes(entity.getCustomTastes().stream()
+                        .map(CustomTasteOutput::from)
                         .collect(Collectors.toList()))
                 .setCreatedDate(entity.getCreatedDate());
     }

@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Getter
@@ -26,6 +27,14 @@ public class Member extends BaseEntity {
     @JoinColumn(name = "order_id")
     private Set<Order> orders = new HashSet<>();
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "donation_id")
+    private Donation donation;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "point_id")
+    private PointAmount pointAmount;
+
     @Builder
     public Member(@NonNull String email, @NonNull String password) {
         this.email = email;
@@ -34,5 +43,29 @@ public class Member extends BaseEntity {
 
     public boolean validate(String password) {
         return this.password.equals(password);
+    }
+
+    public Member addPoint(int amount) {
+        if (Objects.isNull(this.pointAmount)) {
+            this.pointAmount = PointAmount.builder()
+                    .amount(amount)
+                    .build();
+        } else {
+            this.pointAmount.add(amount);
+        }
+
+        return this;
+    }
+
+    public Member addDonation(int amount) {
+        if (Objects.isNull(this.donation)) {
+            this.donation = Donation.builder()
+                    .amount(amount)
+                    .build();
+        } else {
+            this.donation.add(amount);
+        }
+
+        return this;
     }
 }

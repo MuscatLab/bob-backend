@@ -1,8 +1,6 @@
 package com.muscatlab.bob.controller;
 
-import com.muscatlab.bob.dto.card.CheckoutPaymentInput;
 import com.muscatlab.bob.dto.card.PaidInput;
-import com.muscatlab.bob.dto.card.ReceiptOutput;
 import com.muscatlab.bob.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -19,16 +17,6 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class PaymentController {
     private final PaymentService service;
-
-    @Operation(summary = "영수증 발급")
-    @PostMapping("/receipt/{memberId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ReceiptOutput checkout(
-            @PathVariable(value = "memberId") UUID memberId,
-            @RequestBody @Valid CheckoutPaymentInput input
-    ) {
-        return this.service.checkout(memberId, input);
-    }
 
     @Operation(summary = "결제 완료")
     @PostMapping("/paid/{memberId}")

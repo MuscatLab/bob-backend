@@ -1,5 +1,6 @@
 package com.muscatlab.bob.service.impl;
 
+import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.domain.entity.Menu;
 import com.muscatlab.bob.domain.entity.Order;
 import com.muscatlab.bob.domain.entity.Robot;
@@ -24,16 +25,21 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderOutput getByMemberId(UUID memberId) {
         int ticketNumber = (int) this.orderRepository.findAll().stream().count();
-        Order order = this.orderRepository.findByMemberId(memberId)
-                .orElseThrow();
-        if (order.getStatus().equals("FINISHED")) {
+        List<Order> orders = this.orderRepository.findByMemberId(memberId);
+        if (Objects.isNull(orders)) {
+            return null;
+        }
+        Order filterdOrder = orders.stream()
+                .filter(order -> order.getStatus() != OrderStatus.FINISHED)
+                .findFirst()
+                .orElse(null);
+        if (Objects.isNull(filterdOrder)) {
             return null;
         }
         return OrderOutput.from(
-                order,
+                filterdOrder,
                 ticketNumber,
-                "00:" + this.getExpectedTime(order.getMenu().getMenu()),
-                this.getReasons(order.getMenu().getMenu())
+                "00:" + this.getExpectedTime(filterdOrder.getMenu().getMenu())
         );
     }
 

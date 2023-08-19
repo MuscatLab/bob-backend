@@ -1,8 +1,8 @@
-package com.muscatlab.bob.dto.customOption;
+package com.muscatlab.bob.dto.customTaste;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.CustomOption;
+import com.muscatlab.bob.domain.entity.CustomTaste;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -13,17 +13,17 @@ import java.util.UUID;
 @NoArgsConstructor
 @Accessors(chain = true)
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CustomOptionOutput {
+public class CustomTasteOutput {
     private UUID id;
 
     private String name;
 
-    private int quantity;
+    private int step;
 
-    public static CustomOptionOutput from(CustomOption entity) {
-        return new CustomOptionOutput()
+    public static CustomTasteOutput from(CustomTaste entity) {
+        return new CustomTasteOutput()
                 .setId(entity.getId())
                 .setName(entity.getName())
-                .setQuantity(entity.getQuantity());
+                .setStep(entity.getStep());
     }
 }
