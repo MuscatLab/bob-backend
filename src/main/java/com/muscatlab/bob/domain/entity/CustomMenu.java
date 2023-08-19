@@ -21,22 +21,15 @@ public class CustomMenu extends BaseEntity {
     private int quantity;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "custom_menu_custom_option",
-            joinColumns = @JoinColumn(name = "custom_menu_id"),
-            inverseJoinColumns = @JoinColumn(name = "custon_option_id"))
-    private Set<CustomOption> customOptions = new HashSet<>();
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "custom_menu_custom_taste",
             joinColumns = @JoinColumn(name = "custom_menu_id"),
             inverseJoinColumns = @JoinColumn(name = "custom_taste_id"))
     private Set<CustomTaste> customTastes = new HashSet<>();
 
     @Builder
-    public CustomMenu(@NonNull Menu menu, int quantity, @NonNull List<CustomOption> customOptions, @NonNull List<CustomTaste> customTastes) {
+    public CustomMenu(@NonNull Menu menu, int quantity, @NonNull List<CustomTaste> customTastes) {
         this.menu = menu;
         this.quantity = quantity;
-        this.customOptions = new HashSet<>(customOptions);
         this.customTastes = new HashSet<>(customTastes);
     }
 }
