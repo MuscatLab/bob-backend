@@ -1,14 +1,10 @@
 package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.domain.entity.Menu;
-import com.muscatlab.bob.domain.entity.Option;
-import com.muscatlab.bob.domain.entity.OrderHistory;
 import com.muscatlab.bob.domain.entity.Robot;
 import com.muscatlab.bob.dto.menu.CreateMenuInput;
 import com.muscatlab.bob.dto.menu.MenuOutput;
-import com.muscatlab.bob.dto.option.OptionOutput;
 import com.muscatlab.bob.repository.MenuRepository;
-import com.muscatlab.bob.repository.OrderHistoryRepository;
 import com.muscatlab.bob.repository.RobotRepository;
 import com.muscatlab.bob.service.MenuService;
 import lombok.RequiredArgsConstructor;
@@ -23,7 +19,6 @@ import java.util.stream.Collectors;
 public class MenuServiceImpl implements MenuService {
     private final MenuRepository repository;
     private final RobotRepository robotRepository;
-    private final OrderHistoryRepository orderHistoryRepository;
 
     @Override
     @Transactional
@@ -40,13 +35,6 @@ public class MenuServiceImpl implements MenuService {
                 .map(menu -> MenuOutput.from(menu, "00:" + this.getExpectedTime(menu), this.getReasons(menu)))
                 .collect(Collectors.toList());
     }
-
-//    @Override
-//    public List<MenuOutput> getAll(String cardUid) {
-//        return this.repository.findAll().stream()
-//                .map(menu -> MenuOutput.from(menu, "00:" + this.getExpectedTime(menu), this.getReasons(menu), this.getOptionOutputs(menu, cardUid)))
-//                .collect(Collectors.toList());
-//    }
 
     private String getExpectedTime(Menu menu) {
         List<Integer> expectedTimes = this.robotRepository.findAllByMenu(menu).stream()
@@ -69,10 +57,4 @@ public class MenuServiceImpl implements MenuService {
 
         return String.join(", ", reasons);
     }
-
-//    private List<OptionOutput> getOptionOutputs(Menu menu, String cardUid) {
-//        Set<Option> options = menu.getOptions();
-//        List<OrderHistory> orderHistories = this.orderHistoryRepository.findAllByCardUid(cardUid);
-//        List<OptionOutput> optionOutputs = new ArrayList<>();
-//    }
 }

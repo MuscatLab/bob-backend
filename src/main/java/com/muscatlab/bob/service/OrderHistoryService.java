@@ -6,5 +6,5 @@ import java.util.List;
 import java.util.UUID;
 
 public interface OrderHistoryService {
-    List<CustomMenuOutput> getAllByCardUid(UUID memberId);
+    List<CustomMenuOutput> getAllByMemberId(UUID memberId);
 }

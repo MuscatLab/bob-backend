@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.muscatlab.bob.domain.entity.Menu;
 import com.muscatlab.bob.dto.option.CreateOptionInput;
+import com.muscatlab.bob.dto.taste.CreateTasteInput;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,6 +32,9 @@ public class CreateMenuInput {
     @NotNull(message = "메뉴 옵션을 입력해주세요.")
     private List<CreateOptionInput> options;
 
+    @NotNull(message = "메뉴 맛을 입력해주세요.")
+    private List<CreateTasteInput> tastes;
+
     @NotNull
     private List<UUID> robotIds;
 
@@ -41,6 +45,9 @@ public class CreateMenuInput {
                 .imageUrl(this.imageUrl)
                 .options(this.options.stream()
                         .map(CreateOptionInput::toEntity)
+                        .collect(Collectors.toList()))
+                .tastes(this.tastes.stream()
+                        .map(CreateTasteInput::toEntity)
                         .collect(Collectors.toList()))
                 .build();
     }

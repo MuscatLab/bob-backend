@@ -1,23 +1,23 @@
-package com.muscatlab.bob.dto.customOption;
+package com.muscatlab.bob.dto.customTaste;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.CustomOption;
+import com.muscatlab.bob.domain.entity.CustomTaste;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CreateCustomOptionInput {
+public class CreateCustomTasteInput {
     private String name;
 
-    private int quantity;
+    private int step;
 
-    public CustomOption toEntity() {
-        return CustomOption.builder()
+    public CustomTaste toEntity() {
+        return CustomTaste.builder()
                 .name(this.name)
-                .quantity(this.quantity)
+                .step(this.step)
                 .build();
     }
 }

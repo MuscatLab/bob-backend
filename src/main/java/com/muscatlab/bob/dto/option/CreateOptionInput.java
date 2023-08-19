@@ -9,6 +9,8 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -18,12 +20,12 @@ public class CreateOptionInput {
     private String name;
 
     @NotNull(message = "옵션 단계를 입력해주세요.")
-    private int maxStep;
+    private List<Integer> quantity;
 
     public Option toEntity() {
         return Option.builder()
                 .name(this.name)
-                .step(this.maxStep)
+                .quantity(this.quantity)
                 .build();
     }
 }

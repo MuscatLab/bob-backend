@@ -1,8 +1,8 @@
-package com.muscatlab.bob.dto.customOption;
+package com.muscatlab.bob.dto.orderStatusHIstory;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.CustomOption;
+import com.muscatlab.bob.domain.entity.OrderStatusHistory;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
@@ -10,20 +10,17 @@ import lombok.experimental.Accessors;
 import java.util.UUID;
 
 @Data
-@NoArgsConstructor
 @Accessors(chain = true)
+@NoArgsConstructor
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
-public class CustomOptionOutput {
+public class OrderStatusHistoryOutput {
     private UUID id;
 
-    private String name;
+    private String status;
 
-    private int quantity;
-
-    public static CustomOptionOutput from(CustomOption entity) {
-        return new CustomOptionOutput()
+    public static OrderStatusHistoryOutput from(OrderStatusHistory entity) {
+        return new OrderStatusHistoryOutput()
                 .setId(entity.getId())
-                .setName(entity.getName())
-                .setQuantity(entity.getQuantity());
+                .setStatus(entity.getStatus());
     }
 }

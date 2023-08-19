@@ -34,6 +34,6 @@ public class RecommendImageUrlController {
     public List<CustomMenuOutput> getAll(
             @PathVariable(value = "memberId") UUID memberId
     ) {
-        return this.orderHistoryService.getAllByCardUid(memberId);
+        return this.orderHistoryService.getAllByMemberId(memberId);
     }
 }

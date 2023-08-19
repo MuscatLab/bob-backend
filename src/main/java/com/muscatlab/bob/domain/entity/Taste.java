@@ -10,19 +10,19 @@ import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Entity(name = "option")
-@Table(schema = "bob", name = "option", indexes = {@Index(name = "idx_option", columnList = "id", unique = true)})
-public class Option extends BaseEntity {
+@Entity(name = "taste")
+@Table(schema = "bob", name = "taste", indexes = {@Index(name = "idx_taste", columnList = "id", unique = true)})
+public class Taste extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
     @ElementCollection(targetClass = Integer.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "quantity", joinColumns = @JoinColumn(name = "id"))
-    private Set<Integer> quantity = new HashSet<>();
+    @CollectionTable(name = "steps", joinColumns = @JoinColumn(name = "id"))
+    private Set<Integer> steps = new HashSet<>();
 
     @Builder
-    public Option(@NonNull String name, @NonNull List<Integer> quantity) {
+    public Taste(@NonNull String name, @NonNull List<Integer> steps) {
         this.name = name;
-        this.quantity = new HashSet<>(quantity);
+        this.steps = new HashSet<>(steps);
     }
 }

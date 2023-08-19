@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -19,12 +20,18 @@ public class MemberOutput {
 
     private String email;
 
+    private int donationAmount;
+
+    private int pointAmount;
+
     private LocalDateTime createdDate;
 
     public static MemberOutput from(Member entity) {
         return new MemberOutput()
                 .setId(entity.getId())
                 .setEmail(entity.getEmail())
+                .setDonationAmount(Objects.isNull(entity.getDonation()) ? 0 : entity.getDonation().getAmount())
+                .setPointAmount(Objects.isNull(entity.getPointAmount()) ? 0 : entity.getPointAmount().getAmount())
                 .setCreatedDate(entity.getCreatedDate());
     }
 }

@@ -12,18 +12,18 @@ import lombok.NonNull;
 
 @Getter
 @NoArgsConstructor
-@Entity(name = "custom_option")
-@Table(schema = "bob", name = "custom_option", indexes = {@Index(name = "idx_custom_option", columnList = "id", unique = true)})
-public class CustomOption extends BaseEntity {
+@Entity(name = "custom_taste")
+@Table(schema = "bob", name = "custom_taste", indexes = {@Index(name = "idx_custom_taste", columnList = "id", unique = true)})
+public class CustomTaste extends BaseEntity {
     @Column(name = "name", nullable = false)
     private String name;
 
-    @Column(name = "quantity", nullable = false, columnDefinition = "integer default 0")
-    private int quantity;
+    @Column(name = "step", nullable = false, columnDefinition = "integer default 0")
+    private Integer step;
 
     @Builder
-    public CustomOption(@NonNull String name, int quantity) {
+    public CustomTaste(@NonNull String name, @NonNull Integer step) {
         this.name = name;
-        this.quantity = quantity;
+        this.step = step;
     }
 }

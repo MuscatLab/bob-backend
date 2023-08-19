@@ -1,6 +1,5 @@
 package com.muscatlab.bob.service.impl;
 
-import com.muscatlab.bob.domain.entity.OrderHistory;
 import com.muscatlab.bob.dto.customMenu.CustomMenuOutput;
 import com.muscatlab.bob.repository.OrderHistoryRepository;
 import com.muscatlab.bob.service.OrderHistoryService;
@@ -17,9 +16,8 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     private final OrderHistoryRepository repository;
 
     @Override
-    public List<CustomMenuOutput> getAllByCardUid(UUID memberId) {
+    public List<CustomMenuOutput> getAllByMemberId(UUID memberId) {
         List<CustomMenuOutput> menus = this.repository.findAllByMemberId(memberId).stream()
-                .filter(OrderHistory::isStatus)
                 .map(orderHistory -> CustomMenuOutput.from(orderHistory.getCustomMenu()))
                 .collect(Collectors.toList());
 

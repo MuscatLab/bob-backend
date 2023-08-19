@@ -2,13 +2,13 @@ package com.muscatlab.bob.dto.card;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.muscatlab.bob.common.constant.ReturnAmountType;
 import com.muscatlab.bob.domain.entity.CustomMenu;
 import com.muscatlab.bob.dto.customMenu.CustomMenuOutput;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.util.List;
 import java.util.UUID;
 
 @Data
@@ -21,6 +21,10 @@ public class ReceiptOutput {
     private CustomMenuOutput orderMenus;
 
     private int price;
+
+    private int salePrice;
+
+    private int amount;
 
     public static ReceiptOutput from(CustomMenu orderMenus, int price) {
         return new ReceiptOutput()

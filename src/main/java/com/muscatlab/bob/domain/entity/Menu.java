@@ -33,16 +33,25 @@ public class Menu extends BaseEntity {
     )
     private Set<Option> options = new HashSet<>();
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(
+            name = "menu_taste",
+            joinColumns = @JoinColumn(name = "menu_id"),
+            inverseJoinColumns = @JoinColumn(name = "taste_id")
+    )
+    private Set<Taste> tastes = new HashSet<>();
+
     @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "order_id")
     private Set<Order> orders = new HashSet<>();
 
     @Builder
-    public Menu(@NonNull String name, int price, @NonNull String imageUrl, @NonNull List<Option> options) {
+    public Menu(@NonNull String name, int price, @NonNull String imageUrl, @NonNull List<Option> options, @NonNull List<Taste> tastes) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
         this.options = new HashSet<>(options);
+        this.tastes= new HashSet<>(tastes);
     }
 
     public Menu addOrder(@NonNull Order order) {
