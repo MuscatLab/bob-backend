@@ -39,7 +39,7 @@ public class OrderServiceImpl implements OrderService {
         return OrderOutput.from(
                 filterdOrder,
                 ticketNumber,
-                "00:" + this.getExpectedTime(filterdOrder.getMenu().getMenu())
+                this.getExpectedTime(filterdOrder.getMenu().getMenu())
         );
     }
 

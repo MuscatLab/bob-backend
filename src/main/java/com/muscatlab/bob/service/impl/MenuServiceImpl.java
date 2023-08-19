@@ -26,13 +26,13 @@ public class MenuServiceImpl implements MenuService {
         List<Robot> robots = this.robotRepository.findAllById(input.getRobotIds());
         Menu menu = this.repository.save(input.toEntity());
         robots.forEach(robot -> this.robotRepository.save(robot.setMenu(menu)));
-        return MenuOutput.from(menu, "00:" + this.getExpectedTime(menu), this.getReasons(menu));
+        return MenuOutput.from(menu, this.getExpectedTime(menu), this.getReasons(menu));
     }
 
     @Override
     public List<MenuOutput> getAll() {
         return this.repository.findAll().stream()
-                .map(menu -> MenuOutput.from(menu, "00:" + this.getExpectedTime(menu), this.getReasons(menu)))
+                .map(menu -> MenuOutput.from(menu, this.getExpectedTime(menu), this.getReasons(menu)))
                 .collect(Collectors.toList());
     }
 
