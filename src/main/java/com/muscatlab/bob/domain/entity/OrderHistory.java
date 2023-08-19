@@ -14,16 +14,16 @@ public class OrderHistory extends BaseEntity {
     private CustomMenu customMenu;
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "card_id")
-    private Card card;
+    @JoinColumn(name = "member_id")
+    private Member member;
 
     @Column(name = "status", nullable = false, columnDefinition = "boolean default false")
     private boolean status;
 
     @Builder
-    public OrderHistory(@NonNull CustomMenu customMenu, @NonNull Card card, boolean status) {
+    public OrderHistory(@NonNull CustomMenu customMenu, @NonNull Member member, boolean status) {
         this.customMenu = customMenu;
-        this.card = card;
+        this.member = member;
         this.status = status;
     }
 

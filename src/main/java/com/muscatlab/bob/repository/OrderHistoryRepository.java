@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface OrderHistoryRepository extends JpaRepository<OrderHistory, UUID> {
-    List<OrderHistory> findAllByCardUid(String cardUid);
+    List<OrderHistory> findAllByMemberId(UUID memberId);
 
     Optional<OrderHistory> findByCustomMenuId(UUID id);
 }

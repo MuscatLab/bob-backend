@@ -20,20 +20,10 @@ public class OptionOutput {
 
     private int maxStep;
 
-    private boolean highLight;
-
     public static OptionOutput from(Option entity) {
         return new OptionOutput()
                 .setId(entity.getId())
                 .setName(entity.getName())
                 .setMaxStep(entity.getStep());
-    }
-
-    public static OptionOutput from(Option entity, boolean highLight) {
-        return new OptionOutput()
-                .setId(entity.getId())
-                .setName(entity.getName())
-                .setMaxStep(entity.getStep())
-                .setHighLight(highLight);
     }
 }

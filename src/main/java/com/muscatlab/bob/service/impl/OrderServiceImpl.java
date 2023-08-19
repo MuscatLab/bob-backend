@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -21,9 +22,9 @@ public class OrderServiceImpl implements OrderService {
     private final RobotRepository robotRepository;
 
     @Override
-    public OrderOutput getByCardUid(String cardUid) {
+    public OrderOutput getByMemberId(UUID memberId) {
         int ticketNumber = (int) this.orderRepository.findAll().stream().count();
-        Order order = this.orderRepository.findByCardUid(cardUid)
+        Order order = this.orderRepository.findByMemberId(memberId)
                 .orElseThrow();
         if (order.getStatus().equals("FINISHED")) {
             return null;

@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Tag(name = "결제", description = "결제 관련 API")
 @RestController
 @RequestMapping("/payments")
@@ -19,22 +21,22 @@ public class PaymentController {
     private final PaymentService service;
 
     @Operation(summary = "영수증 발급")
-    @PostMapping("/receipt/{cardUid}")
+    @PostMapping("/receipt/{memberId}")
     @ResponseStatus(HttpStatus.CREATED)
     public ReceiptOutput checkout(
-            @PathVariable(value = "cardUid") String cardUid,
+            @PathVariable(value = "memberId") UUID memberId,
             @RequestBody @Valid CheckoutPaymentInput input
     ) {
-        return this.service.checkout(cardUid, input);
+        return this.service.checkout(memberId, input);
     }
 
     @Operation(summary = "결제 완료")
-    @PostMapping("/paid/{cardUid}")
+    @PostMapping("/paid/{memberId}")
     @ResponseStatus(HttpStatus.OK)
     public boolean paid(
-            @PathVariable(value = "cardUid") String cardUid,
+            @PathVariable(value = "memberId") UUID memberId,
             @RequestBody @Valid PaidInput input
     ) {
-        return this.service.paid(cardUid, input);
+        return this.service.paid(memberId, input);
     }
 }

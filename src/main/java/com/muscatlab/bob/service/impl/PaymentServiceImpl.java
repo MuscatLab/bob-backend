@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
@@ -17,19 +19,20 @@ public class PaymentServiceImpl implements PaymentService {
     private final OrderRepository orderRepository;
     private final MenuRepository menuRepository;
     private final CustomMenuRepository customMenuRepository;
-    private final CardRepository cardRepository;
+    //    private final CardRepository cardRepository;
+    final MemberRepository memberRepository;
 
     @Override
     @Transactional
-    public ReceiptOutput checkout(String cardUid, CheckoutPaymentInput input) {
+    public ReceiptOutput checkout(UUID memberId, CheckoutPaymentInput input) {
         Menu menu = this.menuRepository.findByName(input.getMenus().getName())
                 .orElseThrow();
         CustomMenu customMenu = this.customMenuRepository.save(input.getMenus().toEntity(menu));
-        Card card = this.cardRepository.findByUid(cardUid)
+        Member member = this.memberRepository.findById(memberId)
                 .orElseThrow();
         this.orderHistoryRepository.save(OrderHistory.builder()
                 .customMenu(customMenu)
-                .card(card)
+                .member(member)
                 .status(false)
                 .build());
         return ReceiptOutput.from(customMenu, menu.getPrice());
@@ -37,15 +40,15 @@ public class PaymentServiceImpl implements PaymentService {
 
     @Override
     @Transactional
-    public boolean paid(String cardUid, PaidInput input) {
-        Card card = this.cardRepository.findByUid(cardUid)
+    public boolean paid(UUID memberId, PaidInput input) {
+        Member member = this.memberRepository.findById(memberId)
                 .orElseThrow();
         OrderHistory orderHistory = this.orderHistoryRepository.findByCustomMenuId(input.getReceiptId())
                 .orElseThrow();
 
         this.orderRepository.save(Order.builder()
                 .menu(orderHistory.getCustomMenu())
-                .card(card)
+                .member(member)
                 .status("번과 패티를 굽는 중 입니다.")
                 .build());
 
@@ -55,7 +58,7 @@ public class PaymentServiceImpl implements PaymentService {
             return true;
         }
 
-        if (card.getId().equals(orderHistory.getCard().getId())) {
+        if (member.getId().equals(orderHistory.getMember().getId())) {
             this.orderHistoryRepository.save(orderHistory.updateStatus(true));
             return true;
         }
