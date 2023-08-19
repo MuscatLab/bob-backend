@@ -60,22 +60,6 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private int getReturnAmount(CustomMenu customMenu) {
-        int amount = customMenu.getMenu().getPrice() - this.getDiscountPrice(customMenu.getMenu().getPrice(), customMenu.getQuantity());
-        if (amount == 0) return amount;
-
-        int optionCount = customMenu.getMenu().getOptions().size();
-        int customOptionCount = customMenu.getCustomOptions().size();
-        if (optionCount == 0 || customOptionCount == 0) return amount;
-        int optionPercent = 100 / optionCount;
-
-        for (CustomOption customOption : customMenu.getCustomOptions()) {
-            int optionPrice = this.getDiscountPrice(customMenu.getMenu().getPrice(), optionPercent);
-            amount -= this.getDiscountPrice(optionPrice, customOption.getQuantity());
-        }
-        return amount;
-    }
-
-    private int getDiscountPrice(int price, int quantity) {
-        return price / 100 * quantity;
+        return customMenu.getMenu().getPrice() / 100 * customMenu.getQuantity();
     }
 }

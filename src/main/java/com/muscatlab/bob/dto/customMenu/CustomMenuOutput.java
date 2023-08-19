@@ -3,7 +3,6 @@ package com.muscatlab.bob.dto.customMenu;
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.muscatlab.bob.domain.entity.CustomMenu;
-import com.muscatlab.bob.dto.customOption.CustomOptionOutput;
 import com.muscatlab.bob.dto.customTaste.CustomTasteOutput;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,8 +26,6 @@ public class CustomMenuOutput {
 
     private String imageUrl;
 
-    private List<CustomOptionOutput> options;
-
     private List<CustomTasteOutput> tastes;
 
     private LocalDateTime createdDate;
@@ -39,9 +36,6 @@ public class CustomMenuOutput {
                 .setName(entity.getMenu().getName())
                 .setQuantity(entity.getQuantity())
                 .setImageUrl(entity.getMenu().getImageUrl())
-                .setOptions(entity.getCustomOptions().stream()
-                        .map(CustomOptionOutput::from)
-                        .collect(Collectors.toList()))
                 .setTastes(entity.getCustomTastes().stream()
                         .map(CustomTasteOutput::from)
                         .collect(Collectors.toList()))
