@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Tag(name = "추천 메뉴 이미지", description = "추천 메뉴 이미지 관련 API")
 @RestController
@@ -28,11 +29,11 @@ public class RecommendImageUrlController {
     }
 
     @Operation(summary = "주문 내역 전체 조회")
-    @GetMapping("/order/{cardUid}")
+    @GetMapping("/order/{memberId}")
     @ResponseStatus(HttpStatus.OK)
     public List<CustomMenuOutput> getAll(
-            @PathVariable(value = "cardUid") String cardUid
+            @PathVariable(value = "memberId") UUID memberId
     ) {
-        return this.orderHistoryService.getAllByCardUid(cardUid);
+        return this.orderHistoryService.getAllByCardUid(memberId);
     }
 }

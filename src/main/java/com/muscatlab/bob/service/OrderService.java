@@ -2,6 +2,8 @@ package com.muscatlab.bob.service;
 
 import com.muscatlab.bob.dto.order.OrderOutput;
 
+import java.util.UUID;
+
 public interface OrderService {
-    OrderOutput getByCardUid(String cardUid);
+    OrderOutput getByMemberId(UUID memberId);
 }

@@ -4,8 +4,10 @@ import com.muscatlab.bob.dto.card.CheckoutPaymentInput;
 import com.muscatlab.bob.dto.card.PaidInput;
 import com.muscatlab.bob.dto.card.ReceiptOutput;
 
-public interface PaymentService {
-    ReceiptOutput checkout(String cardUid, CheckoutPaymentInput input);
+import java.util.UUID;
 
-    boolean paid(String cardUid, PaidInput input);
+public interface PaymentService {
+    ReceiptOutput checkout(UUID memberId, CheckoutPaymentInput input);
+
+    boolean paid(UUID memberId, PaidInput input);
 }

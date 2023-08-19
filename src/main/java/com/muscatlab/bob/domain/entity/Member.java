@@ -1,11 +1,11 @@
 package com.muscatlab.bob.domain.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Index;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -17,6 +17,14 @@ public class Member extends BaseEntity {
 
     @Column(name = "password", nullable = false, columnDefinition = "TEXT")
     private String password;
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_history_id")
+    private Set<OrderHistory> orderHistories = new HashSet<>();
+
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "order_id")
+    private Set<Order> orders = new HashSet<>();
 
     @Builder
     public Member(@NonNull String email, @NonNull String password) {

@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
 @Tag(name = "QR", description = "QR 관련 API")
 @RestController
 @RequestMapping("/qr")
@@ -16,11 +18,11 @@ public class QRController {
     private final OrderService service;
 
     @Operation(summary = "QR 코드로 주문 내역 조회")
-    @GetMapping("{cardUid}")
+    @GetMapping("{memberId}")
     @ResponseStatus(HttpStatus.OK)
     public OrderOutput getByCardUid(
-        @PathVariable(value = "cardUid") String cardUid
-    ) {
-        return this.service.getByCardUid(cardUid);
+            @PathVariable(value = "memberId") UUID memberId
+            ) {
+        return this.service.getByMemberId(memberId);
     }
 }

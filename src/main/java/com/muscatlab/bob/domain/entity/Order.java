@@ -17,13 +17,13 @@ public class Order extends BaseEntity {
     private String status; // 번과 패티를 굽는 중 입니다.
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name ="card_id")
-    private Card card;
+    @JoinColumn(name ="member_id")
+    private Member member;
 
     @Builder
-    public Order(@NonNull CustomMenu menu, @NonNull Card card, @NonNull String status) {
+    public Order(@NonNull CustomMenu menu, @NonNull Member member, @NonNull String status) {
         this.menu = menu;
-        this.card = card;
+        this.member = member;
         this.status = status;
     }
 
