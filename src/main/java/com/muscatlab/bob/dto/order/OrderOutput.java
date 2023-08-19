@@ -29,6 +29,14 @@ public class OrderOutput {
 
     private List<OrderStatusHistoryOutput> orderStatusHistories;
 
+    private int donationAmount;
+
+    private int totalDonationAmount;
+
+    private int pointAmount;
+
+    private int totalPointAmount;
+
     public static OrderOutput from(Order order, int ticketNumber, String expectedTime) {
         return new OrderOutput()
                 .setId(order.getId())
@@ -37,6 +45,25 @@ public class OrderOutput {
                 .setExpectedTime(expectedTime)
                 .setOrderStatusHistories(order.getOrderStatusHistories().stream()
                         .map(OrderStatusHistoryOutput::from)
-                        .collect(Collectors.toList()));
+                        .collect(Collectors.toList()))
+                .setDonationAmount(0)
+                .setTotalDonationAmount(0)
+                .setPointAmount(0)
+                .setTotalPointAmount(0);
+    }
+
+    public static OrderOutput from(Order order, int ticketNumber, String expectedTime, boolean isDonation, int amount, int totalAmount) {
+        return new OrderOutput()
+                .setId(order.getId())
+                .setTicketNumber(ticketNumber)
+                .setStatus(order.getStatus())
+                .setExpectedTime(expectedTime)
+                .setOrderStatusHistories(order.getOrderStatusHistories().stream()
+                        .map(OrderStatusHistoryOutput::from)
+                        .collect(Collectors.toList()))
+                .setDonationAmount(isDonation ? amount : 0)
+                .setTotalDonationAmount(isDonation ? totalAmount : 0)
+                .setPointAmount(isDonation ? 0 : amount)
+                .setTotalPointAmount(isDonation ? 0 : totalAmount);
     }
 }

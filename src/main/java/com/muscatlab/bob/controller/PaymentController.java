@@ -1,6 +1,7 @@
 package com.muscatlab.bob.controller;
 
 import com.muscatlab.bob.dto.card.PaidInput;
+import com.muscatlab.bob.dto.order.OrderOutput;
 import com.muscatlab.bob.service.PaymentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -21,7 +22,7 @@ public class PaymentController {
     @Operation(summary = "결제 완료")
     @PostMapping("/paid/{memberId}")
     @ResponseStatus(HttpStatus.OK)
-    public boolean paid(
+    public OrderOutput paid(
             @PathVariable(value = "memberId") UUID memberId,
             @RequestBody @Valid PaidInput input
     ) {
