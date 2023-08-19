@@ -11,4 +11,6 @@ import java.util.UUID;
 @Repository
 public interface RobotRepository extends JpaRepository<Robot, UUID> {
     List<Robot> findAllByMenu(Menu menu);
+
+    Robot findByNameLike(String name);
 }

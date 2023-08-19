@@ -1,9 +1,8 @@
 package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
-import com.muscatlab.bob.domain.entity.Menu;
-import com.muscatlab.bob.domain.entity.Order;
-import com.muscatlab.bob.domain.entity.Robot;
+import com.muscatlab.bob.common.constant.ReturnAmountType;
+import com.muscatlab.bob.domain.entity.*;
 import com.muscatlab.bob.dto.order.OrderOutput;
 import com.muscatlab.bob.repository.OrderRepository;
 import com.muscatlab.bob.repository.RobotRepository;
@@ -24,7 +23,6 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public OrderOutput getByMemberId(UUID memberId) {
-        int ticketNumber = (int) this.orderRepository.findAll().stream().count();
         List<Order> orders = this.orderRepository.findByMemberId(memberId);
         if (Objects.isNull(orders)) {
             return null;
@@ -36,11 +34,23 @@ public class OrderServiceImpl implements OrderService {
         if (Objects.isNull(filterdOrder)) {
             return null;
         }
+
+        int returnAmount = this.getReturnAmount(filterdOrder.getMenu());
+
+        Member member = filterdOrder.getMember();
+
         return OrderOutput.from(
                 filterdOrder,
-                ticketNumber,
-                this.getExpectedTime(filterdOrder.getMenu().getMenu())
+                filterdOrder.getOrderNumber(),
+                this.getExpectedTime(filterdOrder.getMenu().getMenu()),
+                filterdOrder.getReturnAmountType().equals(ReturnAmountType.DONATION),
+                returnAmount,
+                filterdOrder.getReturnAmountType().equals(ReturnAmountType.DONATION) ? member.getDonation().getAmount() : member.getPointAmount().getAmount()
         );
+    }
+
+    private int getReturnAmount(CustomMenu customMenu) {
+        return customMenu.getMenu().getPrice() / 100 * customMenu.getQuantity();
     }
 
     private String getExpectedTime(Menu menu) {
