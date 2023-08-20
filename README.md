@@ -15,7 +15,7 @@ $ ./gradlew build
 #### 2. run
 
 ```shell
-$ java -jar build/libs/number-server-v2-0.0.1-SNAPSHOT.jar
+$ java -jar build/libs/bob-0.0.1-SNAPSHOT.jar
 ```
 
 ### Docker build & run
