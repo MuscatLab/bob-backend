@@ -78,7 +78,7 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     private int getReturnAmount(CustomMenu customMenu) {
-        return customMenu.getMenu().getPrice() / 100 * customMenu.getQuantity();
+        return customMenu.getMenu().getPrice() / 100 * 100 -customMenu.getQuantity();
     }
 
     private String getExpectedTime(Menu menu) {
