@@ -12,7 +12,7 @@ public class SwaggerConfig {
     public GroupedOpenApi publicApi() {
         return GroupedOpenApi.builder()
                 .group("v1")
-                .pathsToMatch("/menus/**", "/recommends/**", "/robots/**", "/order-histories/**", "/payments/**", "/members/**")
+                .pathsToMatch("/menus/**", "/recommends/**", "/robots/**", "/order-histories/**", "/payments/**", "/members/**", "/donations/**")
                 .build();
     }
 

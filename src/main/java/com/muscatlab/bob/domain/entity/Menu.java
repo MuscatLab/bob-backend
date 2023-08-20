@@ -25,6 +25,9 @@ public class Menu extends BaseEntity {
     @Column(name = "image_url", nullable = false, columnDefinition = "TEXT")
     private String imageUrl;
 
+    @Column(name = "default_expected_time")
+    private int defaultExpectedTime;
+
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(
             name = "menu_taste",
@@ -38,11 +41,12 @@ public class Menu extends BaseEntity {
     private Set<Order> orders = new HashSet<>();
 
     @Builder
-    public Menu(@NonNull String name, int price, @NonNull String imageUrl, @NonNull List<Taste> tastes) {
+    public Menu(@NonNull String name, int price, @NonNull String imageUrl, @NonNull List<Taste> tastes, @NonNull int defaultExpectedTime) {
         this.name = name;
         this.price = price;
         this.imageUrl = imageUrl;
         this.tastes= new HashSet<>(tastes);
+        this.defaultExpectedTime = defaultExpectedTime;
     }
 
     public Menu addOrder(@NonNull Order order) {

@@ -37,7 +37,7 @@ public class Robot extends BaseEntity {
             return 5;
         }
 
-        return 0;
+        return 1;
     }
 
     public String getReason() {

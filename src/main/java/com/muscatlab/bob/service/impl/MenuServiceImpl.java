@@ -43,7 +43,7 @@ public class MenuServiceImpl implements MenuService {
         int expectedTime = expectedTimes.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-        return String.format("%02d", expectedTime);
+        return String.format("%02d", expectedTime + menu.getDefaultExpectedTime());
     }
 
     private String getReasons(Menu menu) {

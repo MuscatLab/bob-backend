@@ -9,6 +9,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +29,9 @@ public class CreateMenuInput {
     @NotNull(message = "메뉴 이미지를 입력해주세요.")
     private String imageUrl;
 
+    @NotNull(message = "메뉴 기본 소요 시간을 입력해주세요.")
+    private int defaultExpectedTime;
+
     @NotNull(message = "메뉴 맛을 입력해주세요.")
     private List<CreateTasteInput> tastes;
 
@@ -39,6 +43,7 @@ public class CreateMenuInput {
                 .name(this.name)
                 .price(this.price)
                 .imageUrl(this.imageUrl)
+                .defaultExpectedTime(this.defaultExpectedTime)
                 .tastes(this.tastes.stream()
                         .map(CreateTasteInput::toEntity)
                         .collect(Collectors.toList()))
