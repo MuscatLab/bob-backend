@@ -2,6 +2,23 @@
 ## Description
 This is a simple API for a bob application.
 
+## Spec
+### Language
+- JAVA 17
+
+### Framework
+- Spring Boot 3.1
+
+### ORM
+- JPA
+- Lombok
+
+### Database
+- Postgresql
+
+### Docs
+- Swagger 2
+
 ## Build
 
 ### Local build & run
