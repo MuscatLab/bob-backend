@@ -25,7 +25,7 @@ public class Order extends BaseEntity {
     private OrderStatus status; // 현재 어떤 것을 만들고 있습니다.
 
     @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinColumn(name ="member_id")
+    @JoinColumn(name = "member_id")
     private Member member;
 
     @Column(name = "return_amount_tyep")
@@ -40,7 +40,8 @@ public class Order extends BaseEntity {
                  @NonNull Member member,
                  @NonNull OrderStatus status,
                  List<OrderStatusHistory> orderStatusHistories,
-                 ReturnAmountType returnAmountType, int orderNumber) {
+                 ReturnAmountType returnAmountType,
+                 int orderNumber) {
         this.menu = menu;
         this.member = member;
         this.status = status;

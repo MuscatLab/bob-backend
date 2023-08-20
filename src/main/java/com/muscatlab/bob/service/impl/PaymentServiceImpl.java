@@ -46,7 +46,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .status("떡을 불리고 있습니다.")
                 .build());
 
-        int ticketNumber = (int) this.orderRepository.findAll().stream().count();
+        int orderNumber = (int) this.orderRepository.findAll().stream().count();
 
         Order order = this.orderRepository.save(Order.builder()
                 .menu(orderHistory.getCustomMenu())
@@ -54,7 +54,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .status(OrderStatus.READY)
                 .orderStatusHistories(List.of(orderStatusHistory))
                 .returnAmountType(input.getReturnAmountType())
-                .orderNumber(ticketNumber)
+                .orderNumber(orderNumber)
                 .build());
 
         int returnAmount = this.getReturnAmount(customMenu);
@@ -88,7 +88,7 @@ public class PaymentServiceImpl implements PaymentService {
         int expectedTime = expectedTimes.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-        return String.format("%02d", expectedTime);
+        return String.format("%02d", expectedTime + menu.getDefaultExpectedTime());
     }
 
     private void updateInitialRobotStatus() {

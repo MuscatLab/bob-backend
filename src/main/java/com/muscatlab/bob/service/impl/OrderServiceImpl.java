@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -60,18 +59,6 @@ public class OrderServiceImpl implements OrderService {
         int expectedTime = expectedTimes.stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-        return String.format("%02d", expectedTime);
-    }
-
-    private String getReasons(Menu menu) {
-        List<String> reasons = this.robotRepository.findAllByMenu(menu).stream()
-                .map(Robot::getReason)
-                .filter(Objects::nonNull)
-                .collect(Collectors.toList());
-        if (reasons.isEmpty()) {
-            return null;
-        }
-
-        return String.join(", ", reasons);
+        return String.format("%02d", expectedTime + menu.getDefaultExpectedTime());
     }
 }
