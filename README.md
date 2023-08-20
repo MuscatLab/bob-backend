@@ -19,6 +19,10 @@ This is a simple API for a bob application.
 ### Docs
 - Swagger 2
 
+### Infra
+- AWS EC2
+- Docker / Docker-compose
+
 ## Build
 
 ### Local build & run
