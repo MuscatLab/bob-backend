@@ -2,10 +2,16 @@ package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.common.constant.ReturnAmountType;
-import com.muscatlab.bob.common.constant.RobotStatus;
-import com.muscatlab.bob.domain.entity.*;
+import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.robot.commend.RobotCommandService;
+import com.muscatlab.bob.domain.robot.query.RobotQueryService;
 import com.muscatlab.bob.dto.card.PaidInput;
 import com.muscatlab.bob.dto.order.OrderOutput;
+import com.muscatlab.bob.domain.member.entity.Member;
+import com.muscatlab.bob.domain.menu.entity.Menu;
+import com.muscatlab.bob.domain.order.entity.Order;
+import com.muscatlab.bob.domain.orderHistory.entity.OrderHistory;
+import com.muscatlab.bob.domain.orderStatsHistory.entity.OrderStatusHistory;
 import com.muscatlab.bob.repository.*;
 import com.muscatlab.bob.service.PaymentService;
 import lombok.RequiredArgsConstructor;
@@ -26,7 +32,8 @@ public class PaymentServiceImpl implements PaymentService {
     private final CustomMenuRepository customMenuRepository;
     private final MemberRepository memberRepository;
     private final OrderStatusHistoryRepository orderStatusHistoryRepository;
-    private final RobotRepository robotRepository;
+    private final RobotQueryService robotQueryService;
+    private final RobotCommandService robotCommandService;
 
 
     @Override
@@ -57,7 +64,7 @@ public class PaymentServiceImpl implements PaymentService {
                 .orderNumber(orderNumber)
                 .build());
 
-        int returnAmount = this.getReturnAmount(customMenu);
+        int returnAmount = this.robotQueryService.getReturnAmount(customMenu);
 
         if (input.getReturnAmountType().equals(ReturnAmountType.DONATION)) {
             this.memberRepository.save(member.addDonation(returnAmount));
@@ -66,33 +73,14 @@ public class PaymentServiceImpl implements PaymentService {
         if (input.getReturnAmountType().equals(ReturnAmountType.POINT)) {
             this.memberRepository.save(member.addPoint(returnAmount));
         }
-        updateInitialRobotStatus();
+        this.robotCommandService.updateInitialRobotStatus();
         return OrderOutput.from(
                 order,
                 order.getOrderNumber(),
-                this.getExpectedTime(orderHistory.getCustomMenu().getMenu()),
+                this.robotQueryService.getExpectedTime(orderHistory.getCustomMenu().getMenu()),
                 input.getReturnAmountType().equals(ReturnAmountType.DONATION),
                 returnAmount,
                 input.getReturnAmountType().equals(ReturnAmountType.DONATION) ? member.getDonation().getAmount() : member.getPointAmount().getAmount()
         );
-    }
-
-    private int getReturnAmount(CustomMenu customMenu) {
-        return customMenu.getMenu().getPrice() / 100 * (100 - customMenu.getQuantity());
-    }
-
-    private String getExpectedTime(Menu menu) {
-        List<Integer> expectedTimes = this.robotRepository.findAllByMenu(menu).stream()
-                .map(Robot::getExpectedTime)
-                .toList();
-        int expectedTime = expectedTimes.stream()
-                .mapToInt(Integer::intValue)
-                .sum();
-        return String.format("%02d", expectedTime + menu.getDefaultExpectedTime());
-    }
-
-    private void updateInitialRobotStatus() {
-        Robot robot = this.robotRepository.findByNameLike("%떡%");
-        this.robotRepository.save(robot.updateStatus(RobotStatus.PROCEEDING));
     }
 }
