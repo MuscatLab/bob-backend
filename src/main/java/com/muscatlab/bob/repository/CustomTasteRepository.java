@@ -1,6 +1,6 @@
 package com.muscatlab.bob.repository;
 
-import com.muscatlab.bob.customTaste.CustomTaste;
+import com.muscatlab.bob.domain.customTaste.entity.CustomTaste;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

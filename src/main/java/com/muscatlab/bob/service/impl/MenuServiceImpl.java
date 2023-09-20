@@ -25,7 +25,6 @@ public class MenuServiceImpl implements MenuService {
     private final RobotCommandService robotCommandService;
 
     @Override
-    @Transactional
     public MenuOutput create(CreateMenuInput input) {
         List<Robot> robots = this.robotQueryService.getAllByIds(input.getRobotIds());
         Menu menu = this.menuCommandService.create(input.toEntity());

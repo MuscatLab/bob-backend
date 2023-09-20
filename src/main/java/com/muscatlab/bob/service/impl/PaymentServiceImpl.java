@@ -2,7 +2,16 @@ package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.common.constant.ReturnAmountType;
-import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.customMenu.command.CustomMenuCommandService;
+import com.muscatlab.bob.domain.customMenu.entity.CustomMenu;
+import com.muscatlab.bob.domain.member.command.MemberCommandService;
+import com.muscatlab.bob.domain.member.query.MemberQueryService;
+import com.muscatlab.bob.domain.menu.query.MenuQueryService;
+import com.muscatlab.bob.domain.order.command.OrderCommandService;
+import com.muscatlab.bob.domain.order.command.dto.CreateOrderParam;
+import com.muscatlab.bob.domain.order.query.OrderQueryService;
+import com.muscatlab.bob.domain.orderHistory.command.OrderHistoryCommandService;
+import com.muscatlab.bob.domain.orderStatusHistory.command.OrderStatusHistoryCommandService;
 import com.muscatlab.bob.domain.robot.commend.RobotCommandService;
 import com.muscatlab.bob.domain.robot.query.RobotQueryService;
 import com.muscatlab.bob.dto.card.PaidInput;
@@ -11,8 +20,7 @@ import com.muscatlab.bob.domain.member.entity.Member;
 import com.muscatlab.bob.domain.menu.entity.Menu;
 import com.muscatlab.bob.domain.order.entity.Order;
 import com.muscatlab.bob.domain.orderHistory.entity.OrderHistory;
-import com.muscatlab.bob.domain.orderStatsHistory.entity.OrderStatusHistory;
-import com.muscatlab.bob.repository.*;
+import com.muscatlab.bob.domain.orderStatusHistory.entity.OrderStatusHistory;
 import com.muscatlab.bob.service.PaymentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
@@ -21,42 +29,43 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class PaymentServiceImpl implements PaymentService {
-    private final OrderHistoryRepository orderHistoryRepository;
-    private final OrderRepository orderRepository;
-    private final MenuRepository menuRepository;
-    private final CustomMenuRepository customMenuRepository;
-    private final MemberRepository memberRepository;
-    private final OrderStatusHistoryRepository orderStatusHistoryRepository;
+    private final OrderHistoryCommandService orderHistoryCommandService;
+    private final OrderQueryService orderQueryService;
+    private final OrderCommandService orderCommandService;
+    private final MenuQueryService menuQueryService;
+    private final CustomMenuCommandService customMenuCommandService;
+    private final MemberCommandService memberCommandService;
+    private final MemberQueryService memberQueryService;
+    private final OrderStatusHistoryCommandService orderStatusHistoryCommandService;
     private final RobotQueryService robotQueryService;
     private final RobotCommandService robotCommandService;
 
 
     @Override
-    @Transactional
     public OrderOutput paid(UUID memberId, PaidInput input) {
-        Menu menu = this.menuRepository.findByName(input.getMenus().getName())
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatusCode.valueOf(404), "존재하지 않는 메뉴입니다."));
-        CustomMenu customMenu = this.customMenuRepository.save(input.getMenus().toEntity(menu));
-        Member member = this.memberRepository.findById(memberId)
-                .orElseThrow(() -> new HttpClientErrorException(HttpStatusCode.valueOf(404), "존재하지 않는 회원입니다."));
-        OrderHistory orderHistory = this.orderHistoryRepository.save(OrderHistory.builder()
-                .customMenu(customMenu)
-                .member(member)
-                .build());
+        Menu menu = this.menuQueryService.getByName(input.getMenus().getName());
+        if (Objects.isNull(menu)) {
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(404), "존재하지 않는 메뉴입니다.");
+        }
+        CustomMenu customMenu = this.customMenuCommandService.create(input.getMenus().toEntity(menu));
+        Member member = this.memberQueryService.getById(memberId);
+        if (Objects.isNull(member)) {
+            throw new HttpClientErrorException(HttpStatusCode.valueOf(404), "존재하지 않는 회원입니다.");
+        }
+        OrderHistory orderHistory = this.orderHistoryCommandService.create(customMenu, member);
 
-        OrderStatusHistory orderStatusHistory = this.orderStatusHistoryRepository.save(OrderStatusHistory.builder()
-                .status("떡을 불리고 있습니다.")
-                .build());
+        OrderStatusHistory orderStatusHistory = this.orderStatusHistoryCommandService.createWithStatusMessage("떡을 불리고 있습니다.");
 
-        int orderNumber = (int) this.orderRepository.findAll().stream().count();
+        int orderNumber = this.orderQueryService.count();
 
-        Order order = this.orderRepository.save(Order.builder()
-                .menu(orderHistory.getCustomMenu())
+        Order order = this.orderCommandService.create(CreateOrderParam.builder()
+                .customMenu(orderHistory.getCustomMenu())
                 .member(member)
                 .status(OrderStatus.READY)
                 .orderStatusHistories(List.of(orderStatusHistory))
@@ -67,11 +76,11 @@ public class PaymentServiceImpl implements PaymentService {
         int returnAmount = this.robotQueryService.getReturnAmount(customMenu);
 
         if (input.getReturnAmountType().equals(ReturnAmountType.DONATION)) {
-            this.memberRepository.save(member.addDonation(returnAmount));
+            this.memberCommandService.addDonation(member, returnAmount);
         }
 
         if (input.getReturnAmountType().equals(ReturnAmountType.POINT)) {
-            this.memberRepository.save(member.addPoint(returnAmount));
+            this.memberCommandService.addPoint(member, returnAmount);
         }
         this.robotCommandService.updateInitialRobotStatus();
         return OrderOutput.from(

@@ -20,13 +20,11 @@ public class RobotServiceImpl implements RobotService {
     private final RobotCommandService robotCommandService;
 
     @Override
-    @Transactional
     public RobotOutput create(CreateRobotInput input) {
         return RobotOutput.from(this.robotCommandService.create(input.toEntity()));
     }
 
     @Override
-    @Transactional(readOnly = true)
     public List<RobotOutput> getAll() {
         return this.robotQueryService.getAll().stream()
                 .map(RobotOutput::from)

@@ -1,4 +1,4 @@
-package com.muscatlab.bob.customTaste;
+package com.muscatlab.bob.domain.customTaste.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
 import jakarta.persistence.Column;

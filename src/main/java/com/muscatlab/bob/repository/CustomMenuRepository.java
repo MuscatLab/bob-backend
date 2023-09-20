@@ -1,6 +1,6 @@
 package com.muscatlab.bob.repository;
 
-import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.customMenu.entity.CustomMenu;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

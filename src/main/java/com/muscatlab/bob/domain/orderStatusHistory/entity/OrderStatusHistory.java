@@ -1,4 +1,4 @@
-package com.muscatlab.bob.domain.orderStatsHistory.entity;
+package com.muscatlab.bob.domain.orderStatusHistory.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
 import jakarta.persistence.*;

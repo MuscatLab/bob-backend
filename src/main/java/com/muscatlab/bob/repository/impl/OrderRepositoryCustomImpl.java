@@ -1,9 +1,9 @@
 package com.muscatlab.bob.repository.impl;
 
 import com.muscatlab.bob.domain.order.entity.Order;;
-import com.muscatlab.bob.domain.entity.QCustomMenu;
-import com.muscatlab.bob.domain.entity.QMember;
-import com.muscatlab.bob.domain.entity.QOrderStatusHistory;
+import com.muscatlab.bob.domain.customMenu.entity.QCustomMenu;
+import com.muscatlab.bob.domain.member.entity.QMember;
+import com.muscatlab.bob.domain.orderStatusHistory.entity.QOrderStatusHistory;
 import com.muscatlab.bob.repository.OrderRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
-import static com.muscatlab.bob.domain.entity.QOrder.order;
+import static com.muscatlab.bob.domain.order.entity.QOrder.order;
 
 @RequiredArgsConstructor
 public class OrderRepositoryCustomImpl implements OrderRepositoryCustom {

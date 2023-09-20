@@ -1,6 +1,6 @@
 package com.muscatlab.bob.domain.robot.query.impl;
 
-import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.customMenu.entity.CustomMenu;
 import com.muscatlab.bob.domain.menu.entity.Menu;
 import com.muscatlab.bob.domain.robot.entity.Robot;
 import com.muscatlab.bob.domain.robot.query.RobotQueryService;

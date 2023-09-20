@@ -1,14 +1,14 @@
 package com.muscatlab.bob.repository.impl;
 
 import com.muscatlab.bob.domain.card.entity.Card;
-import com.muscatlab.bob.domain.entity.QOrder;
-import com.muscatlab.bob.domain.entity.QOrderHistory;
+import com.muscatlab.bob.domain.order.entity.QOrder;
+import com.muscatlab.bob.domain.orderHistory.entity.QOrderHistory;
 import com.muscatlab.bob.repository.CardRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 
-import static com.muscatlab.bob.domain.entity.QCard.card;
+import static com.muscatlab.bob.domain.card.entity.QCard.card;
 
 @RequiredArgsConstructor
 public class CardRepositoryCustomImpl implements CardRepositoryCustom {

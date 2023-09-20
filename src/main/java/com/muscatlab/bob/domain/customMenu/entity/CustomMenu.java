@@ -1,7 +1,7 @@
-package com.muscatlab.bob.customMenu;
+package com.muscatlab.bob.domain.customMenu.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
-import com.muscatlab.bob.customTaste.CustomTaste;
+import com.muscatlab.bob.domain.customTaste.entity.CustomTaste;
 import com.muscatlab.bob.domain.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.*;

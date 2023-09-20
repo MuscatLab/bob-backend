@@ -17,4 +17,14 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public Member create(Member member) {
         return this.memberRepository.save(member);
     }
+
+    @Override
+    public void addDonation(Member member, int amount) {
+        this.memberRepository.save(member.addDonation(amount));
+    }
+
+    @Override
+    public void addPoint(Member member, int amount) {
+        this.memberRepository.save(member.addPoint(amount));
+    }
 }

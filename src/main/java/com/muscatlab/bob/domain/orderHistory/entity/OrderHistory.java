@@ -1,7 +1,7 @@
 package com.muscatlab.bob.domain.orderHistory.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
-import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.customMenu.entity.CustomMenu;
 import com.muscatlab.bob.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;

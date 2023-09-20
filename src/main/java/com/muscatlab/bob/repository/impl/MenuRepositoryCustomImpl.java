@@ -1,8 +1,8 @@
 package com.muscatlab.bob.repository.impl;
 
 import com.muscatlab.bob.domain.menu.entity.Menu;
-import com.muscatlab.bob.domain.entity.QOrder;
-import com.muscatlab.bob.domain.entity.QTaste;
+import com.muscatlab.bob.domain.order.entity.QOrder;
+import com.muscatlab.bob.domain.taste.entity.QTaste;
 import com.muscatlab.bob.repository.MenuRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.Optional;
 
-import static com.muscatlab.bob.domain.entity.QMenu.menu;
+import static com.muscatlab.bob.domain.menu.entity.QMenu.menu;
 
 @RequiredArgsConstructor
 public class MenuRepositoryCustomImpl implements MenuRepositoryCustom {

@@ -7,4 +7,6 @@ import java.util.UUID;
 
 public interface OrderQueryService {
     List<Order> getAllByMemberId(UUID memberId);
+
+    int count();
 }

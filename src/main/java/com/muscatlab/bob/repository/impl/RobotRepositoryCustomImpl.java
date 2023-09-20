@@ -1,8 +1,7 @@
 package com.muscatlab.bob.repository.impl;
 
 import com.muscatlab.bob.domain.menu.entity.Menu;
-import com.muscatlab.bob.domain.entity.QMenu;
-import com.muscatlab.bob.domain.entity.QRobot;
+import com.muscatlab.bob.domain.menu.entity.QMenu;
 import com.muscatlab.bob.domain.robot.entity.Robot;
 import com.muscatlab.bob.repository.RobotRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -11,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.UUID;
 
-import static com.muscatlab.bob.domain.entity.QRobot.robot;
+import static com.muscatlab.bob.domain.robot.entity.QRobot.robot;
 
 @RequiredArgsConstructor
 public class RobotRepositoryCustomImpl implements RobotRepositoryCustom {

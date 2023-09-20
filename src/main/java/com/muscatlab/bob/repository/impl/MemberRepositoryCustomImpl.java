@@ -1,14 +1,17 @@
 package com.muscatlab.bob.repository.impl;
 
-import com.muscatlab.bob.domain.entity.*;
+import com.muscatlab.bob.domain.donation.entity.QDonation;
 import com.muscatlab.bob.domain.member.entity.Member;
+import com.muscatlab.bob.domain.order.entity.QOrder;
+import com.muscatlab.bob.domain.orderHistory.entity.QOrderHistory;
+import com.muscatlab.bob.domain.pointAmount.entity.QPointAmount;
 import com.muscatlab.bob.repository.MemberRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.Optional;
 
-import static com.muscatlab.bob.domain.entity.QMember.member;
+import static com.muscatlab.bob.domain.member.entity.QMember.member;
 
 @RequiredArgsConstructor
 public class MemberRepositoryCustomImpl implements MemberRepositoryCustom {

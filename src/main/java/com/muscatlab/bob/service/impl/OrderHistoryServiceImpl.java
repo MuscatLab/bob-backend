@@ -19,7 +19,6 @@ public class OrderHistoryServiceImpl implements OrderHistoryService {
     private final OrderHistoryQueryService orderHistoryQueryService;
 
     @Override
-    @Transactional(readOnly = true)
     public List<CustomMenuOutput> getAllByMemberId(UUID memberId) {
         List<CustomMenuOutput> menus = this.orderHistoryQueryService.getAllByMemberId(memberId).stream()
                 .map(orderHistory -> CustomMenuOutput.from(orderHistory.getCustomMenu()))

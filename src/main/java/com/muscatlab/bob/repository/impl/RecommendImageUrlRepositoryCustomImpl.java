@@ -7,7 +7,8 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static com.muscatlab.bob.domain.entity.QRecommendImageUrl.recommendImageUrl;
+import static com.muscatlab.bob.domain.recommendImageUrl.entity.QRecommendImageUrl.recommendImageUrl;
+
 
 @RequiredArgsConstructor
 public class RecommendImageUrlRepositoryCustomImpl implements RecommendImageUrlRepositoryCustom {

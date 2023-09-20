@@ -20,4 +20,9 @@ public class OrderQueryServiceImpl implements OrderQueryService {
     public List<Order> getAllByMemberId(UUID memberId) {
         return this.orderRepository.findByMemberId(memberId);
     }
+
+    @Override
+    public int count() {
+        return (int) this.orderRepository.count();
+    }
 }

@@ -1,7 +1,7 @@
 package com.muscatlab.bob.repository.impl;
 
+import com.muscatlab.bob.domain.customMenu.entity.QCustomMenu;
 import com.muscatlab.bob.domain.orderHistory.entity.OrderHistory;
-import com.muscatlab.bob.domain.entity.QCustomMenu;
 import com.muscatlab.bob.repository.OrderHistoryRepositoryCustom;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import static com.muscatlab.bob.domain.entity.QOrderHistory.orderHistory;
+import static com.muscatlab.bob.domain.orderHistory.entity.QOrderHistory.orderHistory;
 
 @RequiredArgsConstructor
 public class OrderHistoryRepositoryCustomImpl implements OrderHistoryRepositoryCustom {

@@ -4,8 +4,11 @@ import com.muscatlab.bob.domain.member.entity.Member;
 import com.muscatlab.bob.domain.member.query.MemberQueryService;
 import com.muscatlab.bob.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 @Transactional(readOnly = true)
@@ -16,6 +19,13 @@ public class MemberQueryServiceImpl implements MemberQueryService {
     @Override
     public Member getByEmail(String email) {
         return this.memberRepository.findByEmail(email)
+                .orElse(null);
+    }
+
+    @Override
+    @Nullable
+    public Member getById(UUID id) {
+        return this.memberRepository.findById(id)
                 .orElse(null);
     }
 }
