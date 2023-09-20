@@ -12,4 +12,6 @@ public interface RobotRepositoryCustom {
     Robot findByNameLike(String name);
 
     List<Robot> findAllByIds(List<UUID> ids);
+
+    List<Robot> findAll();
 }

@@ -53,4 +53,9 @@ public class RobotQueryServiceImpl implements RobotQueryService {
     public int getReturnAmount(CustomMenu customMenu) {
         return customMenu.getMenu().getPrice() / 100 * (100 - customMenu.getQuantity());
     }
+
+    @Override
+    public List<Robot> getAll() {
+        return this.robotRepository.findAll();
+    }
 }

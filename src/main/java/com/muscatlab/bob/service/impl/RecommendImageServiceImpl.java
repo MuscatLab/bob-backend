@@ -1,5 +1,6 @@
 package com.muscatlab.bob.service.impl;
 
+import com.muscatlab.bob.domain.recommendImageUrl.query.RecommendImageUrlQueryService;
 import com.muscatlab.bob.dto.recommendImageUrl.RecommendImageUrlOutput;
 import com.muscatlab.bob.repository.RecommendImageUrlRepository;
 import com.muscatlab.bob.service.RecommendImageService;
@@ -12,12 +13,11 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 public class RecommendImageServiceImpl implements RecommendImageService {
-    private final RecommendImageUrlRepository repository;
+    private final RecommendImageUrlQueryService recommendImageUrlQueryService;
 
     @Override
-    @Transactional(readOnly = true)
     public List<RecommendImageUrlOutput> getAll() {
-        return repository.findAll().stream()
+        return this.recommendImageUrlQueryService.getAll().stream()
                 .map(RecommendImageUrlOutput::from)
                 .toList();
     }

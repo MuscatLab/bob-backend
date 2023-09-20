@@ -1,11 +1,11 @@
 package com.muscatlab.bob.service.impl;
 
+import com.muscatlab.bob.domain.member.command.MemberCommandService;
 import com.muscatlab.bob.domain.member.entity.Member;
 import com.muscatlab.bob.domain.member.query.MemberQueryService;
 import com.muscatlab.bob.dto.member.MemberOutput;
 import com.muscatlab.bob.dto.member.SignInInput;
 import com.muscatlab.bob.dto.member.SignUpInput;
-import com.muscatlab.bob.repository.MemberRepository;
 import com.muscatlab.bob.service.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatusCode;
@@ -18,22 +18,20 @@ import java.util.Objects;
 @Service
 @RequiredArgsConstructor
 public class MemberServiceImpl implements MemberService {
-    private final MemberRepository memberRepository;
+    private final MemberCommandService memberCommandService;
     private final MemberQueryService memberQueryServiceImpl;
 
     @Override
-    @Transactional
     public MemberOutput signUp(SignUpInput input) {
         Member member = this.memberQueryServiceImpl.getByEmail(input.getEmail());
         if (Objects.nonNull(member)) {
             throw new HttpClientErrorException(HttpStatusCode.valueOf(404), "이미 가입된 이메일입니다.");
         }
 
-        return MemberOutput.from(this.memberRepository.save(input.toEntity()));
+        return MemberOutput.from(this.memberCommandService.create(input.toEntity()));
     }
 
     @Override
-    @Transactional
     public MemberOutput signIn(SignInInput input) {
         Member member = this.memberQueryServiceImpl.getByEmail(input.getEmail());
         if (Objects.isNull(member)) {

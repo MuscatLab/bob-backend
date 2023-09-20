@@ -1,5 +1,6 @@
 package com.muscatlab.bob.service.impl;
 
+import com.muscatlab.bob.domain.orderHistory.query.OrderHistoryQueryService;
 import com.muscatlab.bob.dto.customMenu.CustomMenuOutput;
 import com.muscatlab.bob.repository.OrderHistoryRepository;
 import com.muscatlab.bob.service.OrderHistoryService;
@@ -15,12 +16,12 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 public class OrderHistoryServiceImpl implements OrderHistoryService {
-    private final OrderHistoryRepository repository;
+    private final OrderHistoryQueryService orderHistoryQueryService;
 
     @Override
     @Transactional(readOnly = true)
     public List<CustomMenuOutput> getAllByMemberId(UUID memberId) {
-        List<CustomMenuOutput> menus = this.repository.findAllByMemberId(memberId).stream()
+        List<CustomMenuOutput> menus = this.orderHistoryQueryService.getAllByMemberId(memberId).stream()
                 .map(orderHistory -> CustomMenuOutput.from(orderHistory.getCustomMenu()))
                 .toList();
 

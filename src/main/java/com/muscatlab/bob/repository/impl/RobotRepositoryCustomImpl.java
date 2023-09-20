@@ -43,4 +43,11 @@ public class RobotRepositoryCustomImpl implements RobotRepositoryCustom {
                 .where(robot.id.in(ids))
                 .fetch();
     }
+
+    @Override
+    public List<Robot> findAll() {
+        return query.selectFrom(robot)
+                .leftJoin(QMenu.menu).fetchJoin()
+                .fetch();
+    }
 }

@@ -15,4 +15,6 @@ public interface RobotQueryService {
     List<Robot> getAllByIds(List<UUID> ids);
 
     int getReturnAmount(CustomMenu customMenu);
+
+    List<Robot> getAll();
 }

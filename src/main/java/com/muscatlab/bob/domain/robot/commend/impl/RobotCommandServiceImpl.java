@@ -18,6 +18,11 @@ public class RobotCommandServiceImpl implements RobotCommandService {
     private final RobotRepository robotRepository;
 
     @Override
+    public Robot create(Robot robot) {
+        return this.robotRepository.save(robot);
+    }
+
+    @Override
     public void updateInitialRobotStatus() {
         Robot robot = this.robotRepository.findByNameLike("%떡%");
         this.robotRepository.save(robot.updateStatus(RobotStatus.PROCEEDING));

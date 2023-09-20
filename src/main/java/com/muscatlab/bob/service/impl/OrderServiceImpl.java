@@ -2,11 +2,11 @@ package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.common.constant.ReturnAmountType;
+import com.muscatlab.bob.domain.order.query.OrderQueryService;
 import com.muscatlab.bob.domain.robot.query.RobotQueryService;
 import com.muscatlab.bob.dto.order.OrderOutput;
 import com.muscatlab.bob.domain.member.entity.Member;
 import com.muscatlab.bob.domain.order.entity.Order;
-import com.muscatlab.bob.repository.OrderRepository;
 import com.muscatlab.bob.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,14 +19,13 @@ import java.util.UUID;
 @Service
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
-    private final OrderRepository orderRepository;
+    private final OrderQueryService orderQueryService;
     private final RobotQueryService robotQueryService;
 
     @Override
-    @Transactional(readOnly = true)
     public OrderOutput getByMemberId(UUID memberId) {
-        List<Order> orders = this.orderRepository.findByMemberId(memberId);
-        if (Objects.isNull(orders)) {
+        List<Order> orders = this.orderQueryService.getAllByMemberId(memberId);
+        if (orders.isEmpty()) {
             return null;
         }
         Order filterdOrder = orders.stream()

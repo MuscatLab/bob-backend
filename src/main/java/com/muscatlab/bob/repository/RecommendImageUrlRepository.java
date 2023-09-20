@@ -7,5 +7,5 @@ import org.springframework.stereotype.Repository;
 import java.util.UUID;
 
 @Repository
-public interface RecommendImageUrlRepository extends JpaRepository<RecommendImageUrl, UUID> {
+public interface RecommendImageUrlRepository extends JpaRepository<RecommendImageUrl, UUID>, RecommendImageUrlRepositoryCustom {
 }
