@@ -1,6 +1,6 @@
 package com.muscatlab.bob.repository;
 
-import com.muscatlab.bob.domain.entity.Donation;
+import com.muscatlab.bob.domain.donation.entity.Donation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
