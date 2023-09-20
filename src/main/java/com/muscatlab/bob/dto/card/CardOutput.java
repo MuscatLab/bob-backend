@@ -2,7 +2,7 @@ package com.muscatlab.bob.dto.card;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.Card;
+import com.muscatlab.bob.domain.card.entity.Card;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;

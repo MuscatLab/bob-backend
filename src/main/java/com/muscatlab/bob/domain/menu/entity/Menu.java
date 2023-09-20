@@ -1,6 +1,8 @@
-package com.muscatlab.bob.domain.entity;
+package com.muscatlab.bob.domain.menu.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
+import com.muscatlab.bob.domain.order.entity.Order;
+import com.muscatlab.bob.domain.taste.entity.Taste;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.muscatlab.bob.domain.entity;
+package com.muscatlab.bob.domain.pointAmount.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
 import jakarta.persistence.Entity;

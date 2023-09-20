@@ -2,13 +2,15 @@ package com.muscatlab.bob.service.impl;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.common.constant.ReturnAmountType;
-import com.muscatlab.bob.domain.entity.*;
+import com.muscatlab.bob.domain.robot.query.RobotQueryService;
 import com.muscatlab.bob.dto.order.OrderOutput;
+import com.muscatlab.bob.domain.member.entity.Member;
+import com.muscatlab.bob.domain.order.entity.Order;
 import com.muscatlab.bob.repository.OrderRepository;
-import com.muscatlab.bob.repository.RobotRepository;
 import com.muscatlab.bob.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Objects;
@@ -18,9 +20,10 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
-    private final RobotRepository robotRepository;
+    private final RobotQueryService robotQueryService;
 
     @Override
+    @Transactional(readOnly = true)
     public OrderOutput getByMemberId(UUID memberId) {
         List<Order> orders = this.orderRepository.findByMemberId(memberId);
         if (Objects.isNull(orders)) {
@@ -34,31 +37,17 @@ public class OrderServiceImpl implements OrderService {
             return null;
         }
 
-        int returnAmount = this.getReturnAmount(filterdOrder.getMenu());
+        int returnAmount = this.robotQueryService.getReturnAmount(filterdOrder.getMenu());
 
         Member member = filterdOrder.getMember();
 
         return OrderOutput.from(
                 filterdOrder,
                 filterdOrder.getOrderNumber(),
-                this.getExpectedTime(filterdOrder.getMenu().getMenu()),
+                this.robotQueryService.getExpectedTime(filterdOrder.getMenu().getMenu()),
                 filterdOrder.getReturnAmountType().equals(ReturnAmountType.DONATION),
                 returnAmount,
                 filterdOrder.getReturnAmountType().equals(ReturnAmountType.DONATION) ? member.getDonation().getAmount() : member.getPointAmount().getAmount()
         );
-    }
-
-    private int getReturnAmount(CustomMenu customMenu) {
-        return customMenu.getMenu().getPrice() / 100 * (100 - customMenu.getQuantity());
-    }
-
-    private String getExpectedTime(Menu menu) {
-        List<Integer> expectedTimes = this.robotRepository.findAllByMenu(menu).stream()
-                .map(Robot::getExpectedTime)
-                .toList();
-        int expectedTime = expectedTimes.stream()
-                .mapToInt(Integer::intValue)
-                .sum();
-        return String.format("%02d", expectedTime + menu.getDefaultExpectedTime());
     }
 }

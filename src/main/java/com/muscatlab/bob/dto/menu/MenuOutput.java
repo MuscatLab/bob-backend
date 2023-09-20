@@ -2,7 +2,7 @@ package com.muscatlab.bob.dto.menu;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.Menu;
+import com.muscatlab.bob.domain.menu.entity.Menu;
 import com.muscatlab.bob.dto.taste.TasteOutput;
 import lombok.Data;
 import lombok.NoArgsConstructor;

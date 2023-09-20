@@ -2,7 +2,7 @@ package com.muscatlab.bob.dto.customTaste;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.CustomTaste;
+import com.muscatlab.bob.customTaste.CustomTaste;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

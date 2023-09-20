@@ -23,6 +23,7 @@ public class RobotServiceImpl implements RobotService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<RobotOutput> getAll() {
         return this.repository.findAll().stream()
                 .map(RobotOutput::from)

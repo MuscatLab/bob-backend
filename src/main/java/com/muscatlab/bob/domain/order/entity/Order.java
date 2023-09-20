@@ -1,8 +1,11 @@
-package com.muscatlab.bob.domain.entity;
+package com.muscatlab.bob.domain.order.entity;
 
 import com.muscatlab.bob.common.constant.OrderStatus;
 import com.muscatlab.bob.common.constant.ReturnAmountType;
 import com.muscatlab.bob.common.entity.BaseEntity;
+import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.orderStatsHistory.entity.OrderStatusHistory;
+import com.muscatlab.bob.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 

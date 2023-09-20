@@ -1,7 +1,8 @@
-package com.muscatlab.bob.domain.entity;
+package com.muscatlab.bob.domain.robot.entity;
 
 import com.muscatlab.bob.common.constant.RobotStatus;
 import com.muscatlab.bob.common.entity.BaseEntity;
+import com.muscatlab.bob.domain.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.*;
 

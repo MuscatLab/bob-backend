@@ -2,8 +2,8 @@ package com.muscatlab.bob.dto.customMenu;
 
 import com.fasterxml.jackson.databind.PropertyNamingStrategies;
 import com.fasterxml.jackson.databind.annotation.JsonNaming;
-import com.muscatlab.bob.domain.entity.CustomMenu;
-import com.muscatlab.bob.domain.entity.Menu;
+import com.muscatlab.bob.customMenu.CustomMenu;
+import com.muscatlab.bob.domain.menu.entity.Menu;
 import com.muscatlab.bob.dto.customTaste.CreateCustomTasteInput;
 import lombok.Data;
 import lombok.NoArgsConstructor;

@@ -1,6 +1,10 @@
-package com.muscatlab.bob.domain.entity;
+package com.muscatlab.bob.domain.member.entity;
 
 import com.muscatlab.bob.common.entity.BaseEntity;
+import com.muscatlab.bob.domain.order.entity.Order;
+import com.muscatlab.bob.domain.orderHistory.entity.OrderHistory;
+import com.muscatlab.bob.domain.pointAmount.entity.PointAmount;
+import com.muscatlab.bob.domain.donation.entity.Donation;
 import jakarta.persistence.*;
 import lombok.*;
 
