@@ -1,7 +1,7 @@
 FROM eclipse-temurin:17-jdk AS build
 WORKDIR /workspace/app
 
-COPY . /workspace/app
+COPY .. /workspace/app
 RUN --mount=type=cache,target=/root/.gradle ./gradlew clean build -x test
 
 FROM eclipse-temurin:17-jdk AS runner
