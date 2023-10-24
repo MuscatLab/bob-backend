@@ -6,6 +6,13 @@ spring:
     name: bob-gateway-service
   active:
     profiles: ${APP_PROFILE:local}
+  cloud:
+    gateway:
+      routes:
+        - id: bob-auth-service
+          uri: lb://BOB-AUTH-SERVICE
+          predicates:
+            - Path=/auth/**
 
 eureka:
   client:
@@ -16,3 +23,12 @@ eureka:
     instance:
       prefer-ip-address: true
       instance-id: ${spring.application.name}:${server.port}
+
+management:
+  endpoint:
+    gateway:
+      enabled: true # default value
+  endpoints:
+    web:
+      exposure:
+        include: "gateway"
