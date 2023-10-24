@@ -37,6 +37,9 @@ Bob can customize the taste and quantity of food. And Bob can donate the money s
 - Get Delivery Status
 - Get Delivery History List
 
+## Sequence Diagram
+### [Auth Service](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#sequence-diagram)
+
 ## API Architecture
 ```mermaid
 graph LR
