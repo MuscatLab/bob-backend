@@ -1,12 +1,11 @@
 server:
-  port: ${APP_PORT:8081}
+  port: ${APP_PORT:7070}
 
 spring:
   application:
-    name: auth-api
-
+    name: bob-auth-service
   profiles:
-    active: local
+    active: ${APP_PROFILE:local}
 
 eureka:
   client:
