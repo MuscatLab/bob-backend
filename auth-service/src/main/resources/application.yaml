@@ -1,0 +1,28 @@
+server:
+  port: ${APP_PORT:8081}
+
+spring:
+  application:
+    name: auth-api
+
+  profiles:
+    active: local
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${server.port}
+
+security:
+  jwt:
+    token:
+      secretKey: ${JWT_SECRET:plzgivemesomepizzaandcoffee}
+      tokenExpirationInHours: ${JWT_TOKEN_EXPIRATION_IN_HOURS:24}
+
+logging.level:
+  org.hibernate.SQL: debug
