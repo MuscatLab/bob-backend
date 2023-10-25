@@ -10,7 +10,10 @@ import org.springframework.stereotype.Component;
 import java.nio.charset.StandardCharsets;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.*;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 import java.util.regex.Pattern;
 
 @Component
@@ -33,10 +36,8 @@ public class JwtProvider {
     }
 
     public String extractSubject(String token) {
-        String subject = null;
-
         try {
-            subject = Jwts.parserBuilder()
+            return Jwts.parserBuilder()
                     .setSigningKey(Keys.hmacShaKeyFor(encSecretKey.getBytes(StandardCharsets.UTF_8)))
                     .build()
                     .parseClaimsJws(removeTokenPrefix(token))
@@ -49,8 +50,6 @@ public class JwtProvider {
             // TODO: implement custom exception
             throw new RuntimeException("Invalid Token");
         }
-
-        return subject;
     }
 
     private String createToken(String memberId, long expirationHours) {
