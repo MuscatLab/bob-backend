@@ -56,6 +56,8 @@ class AuthServiceImplTest {
 
             // then
             assertNotNull(result);
+            assertEquals("accessToken", result.getAccessToken());
+            assertEquals("refreshToken", result.getRefreshToken());
         }
     }
 
@@ -81,6 +83,8 @@ class AuthServiceImplTest {
 
             // then
             assertNotNull(result);
+            assertEquals("accessToken", result.getAccessToken());
+            assertEquals("refreshToken", result.getRefreshToken());
         }
 
         @Test
