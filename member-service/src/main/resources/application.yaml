@@ -1,0 +1,36 @@
+server:
+  port: ${APP_PORT:8082}
+
+spring:
+  application:
+    name: bob-member-service
+  profiles:
+    active: ${APP_PROFILE:local}
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        highlight: true
+        format_sql: true
+    open-in-view: false
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: ${DB_URL:jdbc:h2:mem:testdb;MODE=PostgreSQL;}
+    username: ${DB_USER_NAME:SA}
+    password: ${DB_PASSWORD:password}
+    initialization-mode: always
+
+eureka:
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/
+    instance:
+      prefer-ip-address: true
+      instance-id: ${spring.application.name}:${server.port}
+
+logging.level:
+  org.hibernate.SQL: debug
