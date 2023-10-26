@@ -14,7 +14,6 @@ import java.util.Base64;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
-import java.util.regex.Pattern;
 
 @Component
 @RequiredArgsConstructor
@@ -80,9 +79,5 @@ public class JwtProvider {
 
     private String removeTokenPrefix(String token) {
         return token.replaceAll(TokenConstants.TOKEN_PREFIX_REGEX + "( )*", "");
-    }
-
-    private boolean isMatchedPrefix(String token) {
-        return Pattern.matches(TokenConstants.TOKEN_PREFIX_REGEX + " .*", token);
     }
 }
