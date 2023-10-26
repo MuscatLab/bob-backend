@@ -1,10 +1,8 @@
 package com.muscatlab.authservice.shared;
 
-import lombok.Builder;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-@Builder
 public class HttpResponse {
 
     public static <T> ResponseEntity<T> ok(T body) {
