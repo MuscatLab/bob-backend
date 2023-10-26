@@ -18,10 +18,9 @@ Bob can customize the taste and quantity of food. And Bob can donate the money s
 - Create Token
 - Refresh Token
 ### Member Service
-- Create Member
+- Sign Up
 - Get Member
-- Update Member
-- Delete Member
+- Sign In
 ### Shop Service
 - Get Shop List
 - Get Shop Menu List
@@ -39,6 +38,7 @@ Bob can customize the taste and quantity of food. And Bob can donate the money s
 
 ## Sequence Diagram
 ### [Auth Service](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#sequence-diagram)
+### [Member Service](https://github.com/MuscatLab/bob-backend/tree/main/member-service#sequence-diagram)
 
 ## API Architecture
 ```mermaid
