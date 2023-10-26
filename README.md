@@ -38,7 +38,12 @@ Bob can customize the taste and quantity of food. And Bob can donate the money s
 
 ## Sequence Diagram
 ### [Auth Service](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#sequence-diagram)
+1. [Create Token](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#1-create-auth-token)
+2. [Refresh Token](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#2-refresh-auth-token)
 ### [Member Service](https://github.com/MuscatLab/bob-backend/tree/main/member-service#sequence-diagram)
+1. [Sign Up](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#2-refresh-auth-token)
+2. [Get Member](https://github.com/MuscatLab/bob-backend/tree/main/auth-service#2-refresh-auth-token)
+3. [Sign In](https://github.com/MuscatLab/bob-backend/tree/main/member-service#3-sign-in)
 
 ## API Architecture
 ```mermaid
