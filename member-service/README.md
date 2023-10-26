@@ -52,7 +52,7 @@ sequenceDiagram
     participant MO as Output Port
     participant MP as Member Persistence Adapter
     participant RE as Member Repository
-    UC ->> MC: Sign Up Request
+    UC ->> MC: /members/sign-up
     MC ->> MS: Create Member Command
     MS ->> MP: Load Member by Email Port
     MP ->> RE: Find Member by Email
@@ -78,7 +78,7 @@ sequenceDiagram
     participant MO as Output Port
     participant MP as Member Persistence Adapter
     participant RE as Member Repository
-    UC ->> MC: Get Member by Id Request
+    UC ->> MC: /members/{memberId}
     MC ->> MS: Member Id
     MS ->> MP: Load Member by Id Port
     MP ->> RE: Find Member by Id
@@ -99,7 +99,7 @@ sequenceDiagram
     participant MO as Output Port
     participant MP as Member Persistence Adapter
     participant RE as Member Repository
-    UC ->> MC: Sign In Request
+    UC ->> MC: /members/sign-in
     MC ->> MS: Validate Password Command
     MS ->> MP: Load Member by Email Port
     MP ->> RE: Find Member by Email
