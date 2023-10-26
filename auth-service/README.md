@@ -22,15 +22,27 @@ This is the Auth server for the Bob project.
 | JWT_TOKEN_EXPIRATION_IN_HOURS | The expiration time of JWT      | 24        |
 
 ## Sequence Diagram
+
+### 1. Create Auth Token
+
 ```mermaid
 sequenceDiagram
     participant C as Client
     participant GW as Gateway
     participant AS as Auth Server
-    C->>+AS: Create Auth Token
-    AS->>AS: Generate Auth Token
-    AS->>+C: Auth Token
-    C->>+AS: Refresh Auth Token
-    AS->>AS: Generate Auth Token
-    AS->>+C: Auth Token
+    C ->>+ AS: /auth/{memberId}
+    AS ->> AS: Generate Auth Token
+    AS ->>+ C: Auth Token
+```
+
+### 2. Refresh Auth Token
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant GW as Gateway
+    participant AS as Auth Server
+    C ->>+ AS: /auth/refresh
+    AS ->> AS: Generate Auth Token
+    AS ->>+ C: Auth Token
 ```
