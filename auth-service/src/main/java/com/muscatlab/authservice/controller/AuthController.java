@@ -18,24 +18,23 @@ import java.util.UUID;
 public class AuthController {
     private final AuthService authService;
 
-    @GetMapping("/")
+    @GetMapping
     @ResponseStatus(HttpStatus.OK)
     public void healthCheck() {
 
     }
 
     @PostMapping("/{memberId}")
-    @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<TokenResponse> createToken(@PathVariable UUID memberId) {
         TokenResponse tokenResponse = authService.createToken(memberId);
-        return HttpResponse.ok(tokenResponse);
+        return HttpResponse.created(tokenResponse);
     }
 
     @PostMapping("/refresh/{memberId}")
     public ResponseEntity<TokenResponse> refreshToken(@PathVariable UUID memberId,
                                                       HttpServletRequest request, HttpServletResponse response) {
         TokenResponse tokenResponse = authService.refreshToken(memberId, request, response);
-        return HttpResponse.ok(tokenResponse);
+        return HttpResponse.created(tokenResponse);
     }
 
 }
