@@ -1,6 +1,8 @@
 package com.muscatlab.memberservice.adapter.in.web;
 
+import com.muscatlab.memberservice.application.domain.model.Member;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,26 @@ class ResponseMapperTest {
             // then
             assertEquals(result.getStatusCode(), httpStatus);
             assertEquals(result.getBody(), value);
+        }
+    }
+
+    @Test
+    @DisplayName("mapToMemberResponse 테스트")
+    void mapToMemberResponse() {
+        // given
+        ResponseMapper responseMapper = new ResponseMapper();
+        Member member = Member.builder()
+                .name("name")
+                .email("email")
+                .password("password")
+                .build();
+        for (HttpStatus httpStatus : HttpStatus.values()) {
+            // when
+            var result = responseMapper.mapToMemberResponse(member, httpStatus);
+            // then
+            assertEquals(result.getStatusCode(), httpStatus);
+            assertEquals(result.getBody().email(), member.getEmail());
+            assertEquals(result.getBody().name(), member.getName());
         }
     }
 }
