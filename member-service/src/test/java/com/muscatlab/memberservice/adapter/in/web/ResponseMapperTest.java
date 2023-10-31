@@ -1,5 +1,6 @@
 package com.muscatlab.memberservice.adapter.in.web;
 
+import com.muscatlab.memberservice.adapter.in.web.response.BooleanResponse;
 import com.muscatlab.memberservice.application.domain.model.Member;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -21,8 +22,11 @@ class ResponseMapperTest {
             // when
             var result = responseMapper.mapToBooleanResponse(value, httpStatus);
             // then
+            BooleanResponse response = BooleanResponse.builder()
+                    .result(value)
+                    .build();
             assertEquals(result.getStatusCode(), httpStatus);
-            assertEquals(result.getBody(), value);
+            assertEquals(result.getBody(), response);
         }
     }
 
